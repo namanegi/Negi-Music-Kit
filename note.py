@@ -1,7 +1,5 @@
+from formatexception import NoteFormatException
 ref = 'CDEFGAB'
-
-class NoteFormatException(Exception):
-    pass
 
 class Note:
     def __init__(self, name: str) -> None:
@@ -29,6 +27,9 @@ class Note:
                 raise NoteFormatException
         
     def __repr__(self) -> str:
+        return self.base + self.semis + (str(self.oct) if self.oct >= 0 else '')
+
+    def __str__(self) -> str:
         return self.base + self.semis + (str(self.oct) if self.oct >= 0 else '')
 
 if __name__ == '__main__':
