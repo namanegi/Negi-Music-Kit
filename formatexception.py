@@ -3,3 +3,6 @@ class NoteFormatException(Exception):
 
 class IntervalFormatException(Exception):
     pass
+
+class ChordFormatException(Exception):
+    pass
