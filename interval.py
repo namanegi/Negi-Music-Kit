@@ -28,6 +28,9 @@ q_list_P = {
     4: 'qA',
     5: 'pA'
 }
+Mn_list = [
+    'pd', 'qd', 'td', 'dd', 'd', 'm', 'M', 'A', 'dA', 'tA', 'qA', 'pA'
+]
 
 def count_interval(n1: Note, n2: Note) -> str:
     res = ''
@@ -106,9 +109,15 @@ def note_from_interval(n1: Note, interval: str) -> Note:
         f = ti - ms + qi + n1.semic
     else:
         ti = mi * 2 - (2 if mi < 5 else 3)
-        f = ti - ms + qi + n1.semic
-        if ti - ms != 0:
-            f -= 1
+        ms = rei[res_note] - rei[n1.base]
+        ms += 0 if ms >= 0 else 12
+        if ti == ms:
+            p = Mn_list.index('M')
+        else:
+            p = Mn_list.index('m')
+        p -= n1.semic
+        t = Mn_list.index(q)
+        f = t - p
     # print(mi, ms, qi, ti)
     s = 'b' if f < 0 else '#'
     for i in range(abs(f)):
@@ -116,5 +125,5 @@ def note_from_interval(n1: Note, interval: str) -> Note:
     return Note(res_note)
 
 if __name__ == '__main__':
-    print(count_interval(Note('Bb'), Note('F#')))
-    print(note_from_interval(Note('D'), 'M3'))
+    print(count_interval(Note('F'), Note('D')))
+    print(note_from_interval(Note('F'), 'M6'))
